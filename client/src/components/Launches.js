@@ -11,7 +11,10 @@
  query LaunchesQuery{
     launches{
       mission_name,
-      flight_number
+      
+      links {
+        video_link
+      }
       
     }
   }
@@ -38,13 +41,21 @@
          
          {data.launches.map((data)=>(
            <p key={data.mission_name}>
-             {data.mission_name}
+             {data.mission_name},
+             {data.links.video_link}
+
+             
            </p>
+           
          ))
 
          }
          </div>
-
+         
+         <div>
+           
+         </div>
+         
          
          </div>
    )

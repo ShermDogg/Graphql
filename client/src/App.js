@@ -16,7 +16,7 @@ const client = new ApolloClient({
 });
 
 
-function App() {
+function App({data}) {
   return (
     <ApolloProvider client={client}> 
     <div className="container">
