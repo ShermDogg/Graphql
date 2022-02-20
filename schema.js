@@ -17,13 +17,18 @@ const LaunchType = new GraphQLObjectType({
         launch_date_local: {type: GraphQLString},
         launch_success: {type: GraphQLBoolean},
         rocket: {type: RocketType},
-        links: {type: LinksType}
+        links: {type: LinksType},
+        
+      
+        
        
         
 
 
     })
 });
+
+
 
 // Rocket type
 
@@ -33,20 +38,28 @@ const RocketType = new GraphQLObjectType({
     fields: () => ({
         rocket_id: {type: GraphQLString},
         rocket_name: {type: GraphQLString},
-        rocket_type: {type: GraphQLString}
+        rocket_type: {type: GraphQLString},
+
+      
+        
         
         
 
 
     })
 });
+
+
 
 const LinksType = new GraphQLObjectType({
     name: 'Links',
     
     fields: () => ({
-        
-        video_link: {type: GraphQLString}
+        mission_name:{type: GraphQLString},
+        mission_patch:{type: GraphQLString},
+        mission_patch_small:{type: GraphQLString},
+        video_link: {type: GraphQLString},
+        article_link:{type:GraphQLString},
         
         
         
@@ -56,6 +69,8 @@ const LinksType = new GraphQLObjectType({
 
     })
 });
+
+
 
 
 //root query
@@ -66,7 +81,7 @@ const RootQuery =  new GraphQLObjectType({
         launches: {
             type: new GraphQLList(LaunchType),
             resolve(parent,args) {
-                return axios.get('https://api.spacexdata.com/v3/launches')
+                return axios.get('https://api.spacexdata.com/v3/launches?limit=6')
                 .then(res => res.data);
 
 
@@ -97,6 +112,8 @@ const RootQuery =  new GraphQLObjectType({
             }
 
         },
+        
+        
         links: {
             type: new GraphQLList(LinksType),
             resolve(parent,args) {
@@ -106,6 +123,8 @@ const RootQuery =  new GraphQLObjectType({
 
             }
     },
+    
+    
 
         rocket:{
             type: RocketType,
